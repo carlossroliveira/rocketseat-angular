@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core'
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { take } from 'rxjs'
-import { INewProductRequest } from '../../interfaces/new-product-request'
-import { ProductsService } from '../../services/products'
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { take } from 'rxjs';
+import { INewProductRequest } from '../../interfaces/new-product-request';
+import { ProductsService } from '../../services/products';
 
 @Component({
   selector: 'app-new-product',
@@ -21,6 +22,7 @@ export class NewProduct {
   });
 
   private readonly _productsService = inject(ProductsService);
+  private readonly _router = inject(Router);
 
   saveProduct() {
     console.log('productForm', this.productForm);
@@ -43,6 +45,11 @@ export class NewProduct {
           this.successMessage = response.message;
         },
       });
+  }
+
+  cancel() {
+    // Botão de cancelar
+    this._router.navigate(['/products']);
   }
 
   onFileSelected(event: Event) {
