@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
+import { take } from 'rxjs'
 import { UserService } from '../../services/user'
 import { UserAuthService } from '../../services/user-auth'
 
@@ -30,6 +31,7 @@ export class Login {
         this.userForm.get('email')?.value as string,
         this.userForm.get('password')?.value as string
       )
+      .pipe(take(1))
       .subscribe({
         next: (response) => {
           this.loginErrorMessage = '';
